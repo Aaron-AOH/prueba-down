@@ -1,43 +1,24 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-</html>
+var oReq = new XMLHttpRequest();
+// The Endpoint of your server 
+var URLToPDF = "https://drive.google.com/file/d/1YoQfH0B2vHQgc3Wg3Z1zP3I-ep9gXMCg/view?usp=share_link";
+// Configure XMLHttpRequest
+oReq.open("GET", URLToPDF, true);
 
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <title>Titol de la web</title>
-        <style>
-            html, body {
-                align-items: center;
-                display: flex;
-                font-family: "Open Sans";
-                height: 100%;
-                justify-content: center;
-                margin: 0;
-                overflow: hidden;
-                padding: 0;
-                width: 100%;
-            }
-        </style>
-    </head>
-   <body>
-        <center> <h1> Hello world  </h1> <center> 
-         Autor:Aaron Ojeda, Axel García
-        
-   </body>
-</html>
+// Important to use the blob response type
+oReq.responseType = "blob";
 
-function descXml()
+// When the file request finishes
+// Is up to you, the configuration for error events etc.
+oReq.onload = function() {
+// Once the file is downloaded, open a new window with the PDF
+// Remember to allow the POP-UPS in your browser
+var file = new Blob([oReq.response], { 
+    type: 'application/pdf' 
+});
 
-{
-	
-	var url = site + "/" + docxml;
-<a href="https://drive.google.com/file/d/1ZSgHE71FKN776ItfWgV9muKUs0MBgMzt/view?usp=share_link" download="https://drive.google.com/file/d/1ZSgHE71FKN776ItfWgV9muKUs0MBgMzt/view?usp=share_link">descargar</a>
-}
+// Generate file download directly in the browser !
+saveAs(file, "mypdffilename.pdf");
+};
 
+oReq.send();
 
